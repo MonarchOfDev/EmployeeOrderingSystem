@@ -1,0 +1,41 @@
+@model IEnumerable<EmployeeOrderingSystem.Models.Order>
+@{
+    ViewData["Title"] = "All Orders";
+    var isAdmin = User.IsInRole("Admin");
+}
+<h2>All Orders</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+            @if (isAdmin)
+            {
+                <th>Edit Status</th>
+            }
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Employee.Name</td>
+                <td>@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@order.Status</td>
+                <td>R @order.TotalAmount.ToString("F2")</td>
+                @if (isAdmin)
+                {
+                    <td>
+                        <a asp-action="EditStatus" asp-route-id="@order.OrderId" class="btn btn-sm btn-warning">Change Status</a>
+                    </td>
+                }
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

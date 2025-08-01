@@ -1,0 +1,22 @@
+﻿@model EmployeeOrderingSystem.Models.Order
+<h2>Order Confirmed!</h2>
+<p>Order #: <strong>@Model.OrderId</strong></p>
+<p>Date: @Model.OrderDate</p>
+<p>Status: <strong>@Model.Status</strong></p>
+<table class="table">
+    <thead>
+        <tr><th>Item</th><th>Qty</th><th>Price</th><th>Line Total</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.MenuItem.Name</td>
+                <td>@item.Quantity</td>
+                <td>R @item.UnitPriceAtTimeOfOrder.ToString("F2")</td>
+                <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder).ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="MyOrders" class="btn btn-primary">View My Orders</a>

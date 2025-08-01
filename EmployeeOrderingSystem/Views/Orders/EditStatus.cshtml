@@ -1,0 +1,20 @@
+@model EmployeeOrderingSystem.Models.Order
+@{
+    ViewData["Title"] = "Edit Order Status";
+}
+
+<h2>Edit Status for Order #@Model.OrderId</h2>
+<form asp-action="EditStatus" method="post">
+    <input type="hidden" name="id" value="@Model.OrderId" />
+    <div class="form-group">
+        <label>Status</label>
+        <select name="Status" class="form-control">
+            <option value="Pending" selected="@(Model.Status == "Pending" ? "selected" : null)">Pending</option>
+            <option value="Preparing" selected="@(Model.Status == "Preparing" ? "selected" : null)">Preparing</option>
+            <option value="Delivering" selected="@(Model.Status == "Delivering" ? "selected" : null)">Delivering</option>
+            <option value="Delivered" selected="@(Model.Status == "Delivered" ? "selected" : null)">Delivered</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

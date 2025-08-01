@@ -1,0 +1,25 @@
+@model EmployeeOrderingSystem.Models.Restaurant
+@{
+    ViewData["Title"] = "Edit Restaurant";
+}
+<h2>Edit Restaurant</h2>
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LocationDescription"></label>
+        <input asp-for="LocationDescription" class="form-control" />
+        <span asp-validation-for="LocationDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContactNumber"></label>
+        <input asp-for="ContactNumber" class="form-control" />
+        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<a asp-action="Index">Back to List</a>

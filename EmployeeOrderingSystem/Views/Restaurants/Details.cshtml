@@ -1,0 +1,29 @@
+@model EmployeeOrderingSystem.Models.Restaurant
+@{
+    ViewData["Title"] = "Restaurant Details";
+}
+<h2>Details</h2>
+<dl class="row">
+    <dt class="col-sm-2">Name</dt>
+    <dd class="col-sm-10">@Model.Name</dd>
+    <dt class="col-sm-2">Location</dt>
+    <dd class="col-sm-10">@Model.LocationDescription</dd>
+    <dt class="col-sm-2">Contact</dt>
+    <dd class="col-sm-10">@Model.ContactNumber</dd>
+</dl>
+<h3>Menu Items</h3>
+@if (Model.MenuItems != null && Model.MenuItems.Any())
+{
+    <ul>
+    @foreach (var item in Model.MenuItems)
+    {
+        <li>@item.Name (@item.Price.ToString("C"))</li>
+    }
+    </ul>
+}
+else
+{
+    <p>No menu items available.</p>
+}
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+<a asp-action="Index">Back to List</a>

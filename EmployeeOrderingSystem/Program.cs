@@ -1,4 +1,7 @@
 using EmployeeOrderingSystem.Data;
+using EmployeeOrderingSystem.Interfaces;
+using EmployeeOrderingSystem.Models;
+using EmployeeOrderingSystem.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +9,7 @@ namespace EmployeeOrderingSystem
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +19,25 @@ namespace EmployeeOrderingSystem
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>
+                (options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // For Identity's Razor Pages
+            builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+
+            // Enable session
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            builder.Services.AddScoped<IBonusService, BonusService>();
+            builder.Services.AddScoped<IOrderNotificationService, OrderNotificationService>();
+            builder.Services.AddScoped<IMenuSearchService, MenuSearchService>();
 
             var app = builder.Build();
 
@@ -34,18 +53,38 @@ namespace EmployeeOrderingSystem
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
+            app.UseSession();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapStaticAssets();
+
+            // Map default controller route
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
-            app.MapRazorPages()
-               .WithStaticAssets();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Map Razor Pages for Identity
+            app.MapRazorPages();
+
+            // Seed roles and users if none exist
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var dbContext = services.GetRequiredService<ApplicationDbContext>();
+                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                // Run the custom DbInitializer
+                await DbInitializer.SeedAsync(dbContext, userManager, roleManager);
+            }
 
             app.Run();
         }
