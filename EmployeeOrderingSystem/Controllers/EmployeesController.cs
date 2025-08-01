@@ -54,6 +54,15 @@ namespace EmployeeOrderingSystem.Controllers
             return View();
         }
 
+        [Authorize]
+        public async Task<IActionResult> Balance()
+        {
+            var userId = _userManager.GetUserId(User);
+            var Bal = await _context.Employees
+                .Where(e => e.UserId == userId).ToListAsync();
+            return View(Bal);
+        }
+
         // POST: Employees/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

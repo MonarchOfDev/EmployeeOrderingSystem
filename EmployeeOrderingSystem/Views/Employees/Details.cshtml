@@ -13,5 +13,7 @@
     <dt class="col-sm-2">Last Deposit Month</dt>
     <dd class="col-sm-10">@Model.LastDepositMonth.ToShortDateString()</dd>
 </dl>
-<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-<a asp-action="Index">Back to List</a>
+<a asp-action="Deposit" asp-route-id="@Model.Id" class="btn btn-outline-success">Deposit</a>
+&nbsp;&nbsp;&nbsp;
+
+<a asp-action="Index" asp-controller="Restaurants" class="btn btn-outline-primary">Restaurants</a>

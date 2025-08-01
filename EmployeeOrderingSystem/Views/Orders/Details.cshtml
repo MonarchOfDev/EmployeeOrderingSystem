@@ -1,0 +1,63 @@
+﻿@model EmployeeOrderingSystem.Models.Order
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2>Order Details</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Order ID</dt>
+            <dd class="col-sm-9">@Model.OrderId</dd>
+
+            <dt class="col-sm-3">Employee</dt>
+            <dd class="col-sm-9">@Model.Employee?.Name (@Model.Employee?.EmployeeNumber)</dd>
+
+            <dt class="col-sm-3">Order Date</dt>
+            <dd class="col-sm-9">@Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">@Model.Status</dd>
+
+            <dt class="col-sm-3">Last Status Update</dt>
+            <dd class="col-sm-9">@(Model.StatusLastUpdated?.ToString("yyyy-MM-dd HH:mm") ?? "-")</dd>
+
+            <dt class="col-sm-3">Total Amount</dt>
+            <dd class="col-sm-9">R @Model.TotalAmount.ToString("F2")</dd>
+        </dl>
+    </div>
+</div>
+
+<h4>Order Items</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Description</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.MenuItem?.Name</td>
+                <td>@item.MenuItem?.Description</td>
+                <td>R @item.UnitPriceAtTimeOfOrder.ToString("F2")</td>
+                <td>@item.Quantity</td>
+                <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder).ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-end"><strong>Total:</strong></td>
+            <td><strong>R @Model.TotalAmount.ToString("F2")</strong></td>
+        </tr>
+    </tfoot>
+</table>
+
+<a asp-action="Index" class="btn btn-outline-secondary">Back to Orders</a>

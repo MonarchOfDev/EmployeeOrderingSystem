@@ -15,7 +15,7 @@
     <div class="alert alert-info">
         Your cart is empty.
     </div>
-    <a asp-action="BrowseMenu" asp-route-restaurantId="@(Model?.RestaurantId ?? 0)" class="btn btn-primary">Browse Menu</a>
+    <a asp-action="Index" asp-controller="Restaurants" class="btn btn-primary">Restaurants</a>
 }
 else
 {

@@ -163,6 +163,23 @@ namespace EmployeeOrderingSystem.Controllers
             ViewData["Statuses"] = new SelectList(new[] { "Pending", "Preparing", "Delivering", "Delivered" }, order.Status);
             return View(order);
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var order = await _context.Orders
+                .Include(o => o.Employee)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.MenuItem)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order == null)
+                return NotFound();
+
+            return View(order);
+        }
+
 
         // POST: Orders/EditStatus/5
         [HttpPost]
