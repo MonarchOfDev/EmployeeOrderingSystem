@@ -2,28 +2,36 @@
 @{
     ViewData["Title"] = "Restaurant Details";
 }
-<h2>Details</h2>
-<dl class="row">
-    <dt class="col-sm-2">Name</dt>
-    <dd class="col-sm-10">@Model.Name</dd>
-    <dt class="col-sm-2">Location</dt>
-    <dd class="col-sm-10">@Model.LocationDescription</dd>
-    <dt class="col-sm-2">Contact</dt>
-    <dd class="col-sm-10">@Model.ContactNumber</dd>
-</dl>
-<h3>Menu Items</h3>
-@if (Model.MenuItems != null && Model.MenuItems.Any())
-{
-    <ul>
-    @foreach (var item in Model.MenuItems)
-    {
-        <li>@item.Name (@item.Price.ToString("C"))</li>
-    }
-    </ul>
-}
-else
-{
-    <p>No menu items available.</p>
-}
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning"><span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit</span></a> &nbsp; | &nbsp;
-<a asp-action="Index" class="btn btn-outline-secondary"> <i class="bi bi-arrow-left-circle"></i>Go Back</a>
+<div class="d-flex justify-content-center">
+    <div class="container-card col-md-6">
+        <h2>Details</h2>
+        <hr />
+        <dl class="row">
+            <dt class="form-label">Name</dt>
+            <dd class="col-sm-10">@Model.Name</dd>
+            <dt class="form-label">Location</dt>
+            <dd class="col-sm-10">@Model.LocationDescription</dd>
+            <dt class="form-label">Contact</dt>
+            <dd class="col-sm-10">@Model.ContactNumber</dd>
+        </dl>
+        <h3>Menu Items</h3>
+        @if (Model.MenuItems != null && Model.MenuItems.Any())
+        {
+            <ul>
+                @foreach (var item in Model.MenuItems)
+                {
+                    <li>@item.Name (@item.Price.ToString("C"))</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No menu items available.</p>
+        }
+
+        <div class="container d-flex flex-column flex-md-row justify-content-between text-black">
+            <a asp-action="Index" class="btn btn-outline-secondary"> <i class="bi bi-arrow-left-circle"></i> Go Back</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning"><span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit</span></a>
+        </div>
+    </div>
+</div>

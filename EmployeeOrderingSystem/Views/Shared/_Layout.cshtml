@@ -31,7 +31,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark text-black" style="background-color:black;height:40px;"></nav>
         <nav class="navbar navbar-expand-lg navbar-dark text-black" style="background-color:#E6B000;font-weight:bold;margin-top:0%;margin-bottom: 1%;">
             <div class="container-fluid text-black">
-                <a class="navbar-brand text-black" asp-area="" asp-controller="Home" asp-action="Index">EmployeeOrderingSystem</a>
+                <a class="navbar-brand text-black" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/joburg_logo.png" height="60px" />
+                </a>
                 <button class="navbar-toggler text-black" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-black"></span>
                 </button>
@@ -58,10 +60,10 @@
                         else if (isCustomer)
                         {
                             <li class="nav-item text-black">
-                                <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Balance">Balance</a>
+                                <a class="nav-link text-black" asp-area="" asp-controller="Employees" asp-action="Balance">Balance</a>
                             </li>
                             <li class="nav-item text-black">
-                                <a class="nav-link" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
+                                <a class="nav-link text-black" asp-area="" asp-controller="Restaurants" asp-action="Index">Restaurants</a>
                             </li>
                             <li class="nav-item text-black">
                                 <a class="nav-link text-black" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
@@ -115,7 +117,7 @@
         }
         @RenderBody()
     </div>
-
+    <br />
     <footer class="border-top footer text-muted mt-5 py-3 bg-light" style="position:absolute; bottom:0;width:100%">
         <div class="container d-flex flex-column flex-md-row justify-content-between text-black">
             <div>

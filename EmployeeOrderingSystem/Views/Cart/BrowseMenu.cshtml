@@ -4,39 +4,41 @@
     var restaurantId = (int)ViewBag.RestaurantId;
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container-card">
+    <h2>@ViewData["Title"]</h2>
 
 
-<table id="example" class="table table-bordered table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th width="180"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table id="example" class="table table-bordered table-hover table-responsive">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Description</td>
-                <td>R @item.Price.ToString("F2")</td>
-                <td>
-                    <form asp-action="AddToCart" asp-controller="Cart" method="post" class="form-inline">
-                        <input type="hidden" name="menuItemId" value="@item.Id" />
-                        <input type="hidden" name="restaurantId" value="@restaurantId" />
-                        <input type="number" name="quantity" value="1" min="1" class="form-control d-inline-block" style="width:70px;" />
-                        <button type="submit" class="btn btn-outline-primary ml-2"><i class="bi bi-plus-circle"></i> Add</button>
-                    </form>
-                </td>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th width="180"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>R @item.Price.ToString("F2")</td>
+                    <td>
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post" class="form-inline">
+                            <input type="hidden" name="menuItemId" value="@item.Id" />
+                            <input type="hidden" name="restaurantId" value="@restaurantId" />
+                            <input type="number" name="quantity" value="1" min="1" class="form-control d-inline-block" style="width:70px;" />
+                            <button type="submit" class="btn btn-outline-primary ml-2"><i class="bi bi-plus-circle"></i> Add</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<a asp-action="ViewCart" class="btn btn-outline-primary"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View Cart</span></a>
+    <a asp-action="ViewCart" class="btn btn-outline-primary"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View Cart</span></a>
+</div>
 
 @section Scripts {
     <script>

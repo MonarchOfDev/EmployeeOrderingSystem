@@ -4,42 +4,47 @@
     var isAdmin = User.IsInRole("Admin");
 }
 
-<h2>Balance</h2>
 
-<table id="example" class="table table-bordered table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Employee Number</th>
-            <th>Balance</th>
-            <th>Last Deposit</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.EmployeeNumber</td>
-                <td>R @item.Balance.ToString("F2")</td>
-                <td>@item.LastDepositMonth.ToString("yyyy-MM")</td>
-                @if (isAdmin)
+<div class="d-flex justify-content-center">
+    <div class="container-card" style="width:850px;">
+        <h2>Balance</h2>
+
+        <table id="example" class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Employee Number</th>
+                    <th>Balance</th>
+                    <th>Last Deposit</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <td>
-                        <a asp-action="Deposit" asp-route-id="1" class="btn btn-outline-primary m-1" style="width:110px"><i class="bi bi-coin"></i>&nbsp; Deposit</a>
-                    </td>
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.EmployeeNumber</td>
+                        <td>R @item.Balance.ToString("F2")</td>
+                        <td>@item.LastDepositMonth.ToString("yyyy-MM")</td>
+                        @if (isAdmin)
+                        {
+                            <td>
+                                <a asp-action="Deposit" asp-route-id="1" class="btn btn-outline-primary m-1" style="width:110px"><i class="bi bi-coin"></i>&nbsp; Deposit</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Deposit" asp-route-id="@item.Id" class="btn btn-outline-success m-1" style="width:110px"><i class="bi bi-coin"></i>&nbsp; Deposit</a>
+                            </td>
+                        }
+                    </tr>
                 }
-                else
-                {
-                    <td>
-                        <a asp-action="Deposit" asp-route-id="@item.Id" class="btn btn-outline-success m-1" style="width:110px"><i class="bi bi-coin"></i>&nbsp; Deposit</a>
-                    </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
 @section Scripts {
     <script>
         $(document).ready(function() {

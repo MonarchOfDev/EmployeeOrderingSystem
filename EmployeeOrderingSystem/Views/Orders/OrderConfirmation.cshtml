@@ -1,7 +1,7 @@
 ﻿@model EmployeeOrderingSystem.Models.Order
 
 <div class="container-card w-90">
-    <h2>Order Confirmed!</h2>
+    <h2 class="text-center">Order Confirmed!</h2>
     <p>Order #: <strong>@Model.OrderId</strong></p>
     <p>Date: @Model.OrderDate</p>
     <p>Status: <strong>@Model.Status</strong></p>
@@ -16,29 +16,14 @@
                     <td>@item.MenuItem.Name</td>
                     <td>@item.Quantity</td>
                     <td>R @item.UnitPriceAtTimeOfOrder</td>
-                    <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder).ToString("F2")</td>
+                    <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder)</td>
                 </tr>
             }
         </tbody>
     </table>
+    <a asp-action="MyOrders" class="btn btn-outline-primary"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View My Orders</span></a>
 </div>
-<table id="example" class="table table-bordered table-hover table-responsive">
-    <thead>
-        <tr><th>Item</th><th>Qty</th><th>Price</th><th>Line Total</th></tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderItems)
-        {
-            <tr>
-                <td>@item.MenuItem.Name</td>
-                <td>@item.Quantity</td>
-                <td>R @item.UnitPriceAtTimeOfOrder.ToString("F2")</td>
-                <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder).ToString("F2")</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<a asp-action="MyOrders" class="btn btn-primary"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View My Orders</span></a>
+
 @section Scripts {
     <script>
         $(document).ready(function() {
