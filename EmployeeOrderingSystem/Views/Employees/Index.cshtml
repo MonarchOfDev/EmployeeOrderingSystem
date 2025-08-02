@@ -7,7 +7,7 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Add New Employee</a>
 </p>
-<table class="table table-bordered table-striped">
+<table id="example" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Name</th>
@@ -34,3 +34,13 @@
         }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                paging: true,
+                searching: true
+            });
+        });
+    </script>
+}
