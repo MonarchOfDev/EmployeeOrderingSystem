@@ -5,69 +5,76 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
-
 @if (Model == null || !Model.Items.Any())
 {
     <div class="alert alert-info">
         Your cart is empty.
     </div>
-    <a asp-action="Index" asp-controller="Restaurants" class="btn btn-primary">Restaurants</a>
+    <a asp-action="Index" asp-controller="Restaurants" class="btn btn-outline-primary"><i class="bi bi-shop"></i>&nbsp;Restaurants</a>
 }
 else
 {
-    <p><b>Restaurant:</b> @Model.RestaurantName</p>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th width="100">Unit Price</th>
-                <th width="100">Quantity</th>
-                <th width="120">Total</th>
-                <th width="120"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
+    <div class="container-card w-90">
+        <table id="example" class="table table-bordered table-hover table-responsive">
+            <thead>
                 <tr>
-                    <td>@item.MenuItemName</td>
-                    <td>R @item.UnitPrice.ToString("F2")</td>
-                    <td>
-                        <!-- Single-line form for updating quantity (NOT nested) -->
-                        <form asp-action="UpdateQuantity" asp-controller="Cart" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="menuItemId" value="@item.MenuItemId" />
-                            <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control d-inline-block" style="width:60px;" />
-                            <button type="submit" class="btn btn-sm btn-secondary ml-1">Update</button>
-                        </form>
-                    </td>
-                    <td>R @item.Total.ToString("F2")</td>
-                    <td>
-                        <!-- Single-line form for removing item -->
-                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="menuItemId" value="@item.MenuItemId" />
-                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                        </form>
-                    </td>
+                    <th>Item</th>
+                    <th width="100">Unit Price</th>
+                    <th width="100">Quantity</th>
+                    <th width="120">Total</th>
+                    <th width="120"></th>
                 </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3" class="text-right"><b>Total:</b></td>
-                <td colspan="2"><b>R @Model.CartTotal.ToString("F2")</b></td>
-            </tr>
-        </tfoot>
-    </table>
-    <!-- Main form for checkout (NO nested forms!) -->
-    <form asp-action="Checkout" method="post">
-        @Html.AntiForgeryToken()
-        <button class="btn btn-success" type="submit">Checkout &amp; Place Order</button>
-        <a asp-action="BrowseMenu" asp-route-restaurantId="@Model.RestaurantId" class="btn btn-outline-primary ml-2">Add More Items</a>
-    </form>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.MenuItemName</td>
+                        <td>R @item.UnitPrice.ToString("F2")</td>
+                        <td>
+                            <!-- Single-line form for updating quantity (NOT nested) -->
+                            <form asp-action="UpdateQuantity" asp-controller="Cart" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="menuItemId" value="@item.MenuItemId" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control d-inline-block ml-1" />
+                                <button type="submit" class="btn btn-outline-secondary m-1"><i class="bi bi-arrow-repeat"></i>Update</button>
+                            </form>
+                        </td>
+                        <td>R @item.Total.ToString("F2")</td>
+                        <td>
+                            <!-- Single-line form for removing item -->
+                            <form asp-action="RemoveFromCart" asp-controller="Cart" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="menuItemId" value="@item.MenuItemId" />
+                                <button type="submit" class="btn btn-outline-danger m-1" style="width:100px"><span class="d-flex"><i class="bi bi-trash"></i>&nbsp;Remove</span></button>                                
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right"><b>Total:</b></td>
+                    <td colspan="2"><b>R @Model.CartTotal.ToString("F2")</b></td>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- Main form for checkout (NO nested forms!) -->
+        <form asp-action="Checkout" method="post">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-coin"></i>&nbsp;Checkout &amp; Place Order</button>&nbsp;&nbsp;&nbsp;
+            <a asp-action="BrowseMenu" asp-route-restaurantId="@Model.RestaurantId" class="btn btn-outline-primary ml-2"><i class="bi bi-plus-circle"></i> More Items</a>
+        </form>
+    </div>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true
+            });
+        });
+    </script>
 }

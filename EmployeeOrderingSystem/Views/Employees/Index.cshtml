@@ -3,41 +3,48 @@
     ViewData["Title"] = "Employees";
 }
 
-<h2>Employees</h2>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Employee</a>
-</p>
-<table id="example" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Employee Number</th>
-            <th>Balance</th>
-            <th>Last Deposit</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<div class="container-card w-90">
+    <h1 class="text-center">Employees</h1>
+    <div class="container d-flex flex-column flex-md-row justify-content-end">
+        <a asp-action="Create" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> New Employee</a>
+    </div>
+    <br />
+    <table id="example" class="table table-bordered table-hover table-responsive">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.EmployeeNumber</td>
-                <td>R @item.Balance.ToString("F2")</td>
-                <td>@item.LastDepositMonth.ToString("yyyy-MM")</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">View</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
+                <th>Name</th>
+                <th>Employee Number</th>
+                <th>Balance</th>
+                <th>Last Deposit</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.EmployeeNumber</td>
+                    <td>R @item.Balance.ToString("F2")</td>
+                    <td>@item.LastDepositMonth.ToString("yyyy-MM")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info m-1" style="width:80px"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View</span></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning m-1" style="width:75px"><span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit</span></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger m-1" style="width:95px"><span class="d-flex"><i class="bi bi-trash"></i>&nbsp;Delete</span></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
 @section Scripts {
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
+                responsive: true,
                 paging: true,
                 searching: true
             });

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<EmployeeOrderingSystem.Models.Order>
 <h2>All Orders (Admin)</h2>
-<table class="table">
+<table id="example" class="table table-bordered table-hover table-responsive">
     <thead>
         <tr><th>OrderId</th><th>Employee</th><th>Date</th><th>Status</th><th>Actions</th></tr>
     </thead>
@@ -13,9 +13,21 @@
                 <td>@order.OrderDate</td>
                 <td>@order.Status</td>
                 <td>
-                    <a asp-action="EditStatus" asp-route-id="@order.OrderId" class="btn btn-warning btn-sm">Edit Status</a>
+                    <a asp-action="EditStatus" asp-route-id="@order.OrderId" class="btn btn-warning btn-sm"><span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit</span>&nbsp; Status</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true
+            });
+        });
+    </script>
+}
+

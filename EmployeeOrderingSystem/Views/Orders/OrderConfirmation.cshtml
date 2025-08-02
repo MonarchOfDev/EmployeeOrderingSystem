@@ -1,9 +1,28 @@
 ﻿@model EmployeeOrderingSystem.Models.Order
-<h2>Order Confirmed!</h2>
-<p>Order #: <strong>@Model.OrderId</strong></p>
-<p>Date: @Model.OrderDate</p>
-<p>Status: <strong>@Model.Status</strong></p>
-<table class="table">
+
+<div class="container-card w-90">
+    <h2>Order Confirmed!</h2>
+    <p>Order #: <strong>@Model.OrderId</strong></p>
+    <p>Date: @Model.OrderDate</p>
+    <p>Status: <strong>@Model.Status</strong></p>
+    <table id="example" class="table table-bordered table-hover table-responsive">
+        <thead>
+            <tr><th>Item</th><th>Qty</th><th>Price</th><th>Line Total</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.MenuItem.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>R @item.UnitPriceAtTimeOfOrder</td>
+                    <td>R @(item.Quantity* item.UnitPriceAtTimeOfOrder).ToString("F2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<table id="example" class="table table-bordered table-hover table-responsive">
     <thead>
         <tr><th>Item</th><th>Qty</th><th>Price</th><th>Line Total</th></tr>
     </thead>
@@ -19,4 +38,15 @@
         }
     </tbody>
 </table>
-<a asp-action="MyOrders" class="btn btn-primary">View My Orders</a>
+<a asp-action="MyOrders" class="btn btn-primary"><span class="d-flex"><i class="bi bi-view-stacked"></i>&nbsp;View My Orders</span></a>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true
+            });
+        });
+    </script>
+}

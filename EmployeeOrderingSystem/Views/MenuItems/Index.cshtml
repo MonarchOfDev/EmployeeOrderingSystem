@@ -3,7 +3,7 @@
     ViewData["Title"] = "Menu Items";
 }
 <h2>Menu Items</h2>
-<table class="table">
+<table id="example" class="table table-bordered table-hover table-responsive">
     <thead>
         <tr>
             <th>Name</th>
@@ -23,7 +23,8 @@
             <td>@item.Restaurant?.Name</td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id"><span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit</span></a> |
+                    <span class="d-flex"><i class="bi bi-pencil-square"></i>&nbsp;Edit Status</span>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
@@ -31,3 +32,14 @@
     </tbody>
 </table>
 <a asp-action="Create">Create New</a>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true
+            });
+        });
+    </script>
+}
