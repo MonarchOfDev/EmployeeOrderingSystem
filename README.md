@@ -19,34 +19,20 @@ Administrators can:
 
 ## ⚙️ Technologies Used
 
-* **Framework:** ASP.NET Core MVC (.NET 6+)
+* **Framework:** ASP.NET Core MVC (.NET 9)
 * **Language:** C#
 * **ORM:** Entity Framework Core
 * **Database:** SQL Server LocalDB
-* **Frontend:** Razor Views, Bootstrap (optional)
+* **Frontend:** Razor Views, Bootstrap
 * **IDE:** Visual Studio / Visual Studio Code
 
 ---
-## 🗂️ Project Structure
-
-CafeteriaCreditSystem/
-│
-├── Controllers/         # MVC Controllers (Employee, Restaurant, Order)
-├── Views/               # Razor Views for each controller
-├── ViewModels/          # Presentation-layer models for UI logic
-├── Models/              # EF Core data models (Employee, Order, etc.)
-├── Data/                # DbContext, migrations, DB initializer
-├── Services/            # Business logic services
-├── Interfaces/          # Service interfaces for DI
-├── Helpers/             # Utilities and helpers
-├── wwwroot/             # Static files (CSS, JS, images)
-├── Properties/          # Project metadata
-└── README.md                                            
-
-Setup Instructions
+## Setup Instructions
 
 1. Clone the repository
-git clone https://github.com/MonarchOfDev/EmployeeOrderingSystem.git                                                           cd CafeteriaCreditSystem
+git clone https://github.com/MonarchOfDev/EmployeeOrderingSystem.git                                                     
+
+cd CafeteriaCreditSystem
 
 2. Configure the database
 Update the ConnectionStrings section in appsettings.json:
@@ -55,12 +41,12 @@ Update the ConnectionStrings section in appsettings.json:
 }
 
 3. Apply migrations and seed data (if applicable)
-dotnet ef database update
+update-database
 
 4. Run the application
 
 ---------
-Add screenshots of employee dashboard, order placement, and admin views
+
 
 -----
 Notes
@@ -68,6 +54,6 @@ The project follows MVC architecture with clean separation of concerns.
 
 Bonus deposit logic is robust and handles month transitions correctly.
 
-Responsive views with Bootstrap (optional) for usability.
+Responsive views with Bootstrap for usability.
 
 GitHub repo includes full source, DB migrations, and screenshots
