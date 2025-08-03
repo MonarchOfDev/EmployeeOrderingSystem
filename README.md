@@ -31,7 +31,6 @@ Administrators can:
 
 1. Clone the repository
 git clone https://github.com/MonarchOfDev/EmployeeOrderingSystem.git                                                     
-
 cd CafeteriaCreditSystem
 
 2. Configure the database
