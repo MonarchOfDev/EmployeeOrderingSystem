@@ -48,7 +48,8 @@ update-database
 
 
 -----
-Notes
+## Notes
+
 The project follows MVC architecture with clean separation of concerns.
 
 Bonus deposit logic is robust and handles month transitions correctly.
