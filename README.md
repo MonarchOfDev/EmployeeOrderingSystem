@@ -24,7 +24,7 @@ Administrators can:
 * **ORM:** Entity Framework Core
 * **Database:** SQL Server LocalDB
 * **Frontend:** Razor Views, Bootstrap
-* **IDE:** Visual Studio / Visual Studio Code
+* **IDE:** Visual Studio 
 
 ---
 ## Setup Instructions
